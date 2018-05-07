@@ -74,6 +74,7 @@ void OpenText::showXRam(QBarSeries *series, QStringList &categories)
     chart->addSeries(series);
     chart->setTitle("Data");
     chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->setTheme(QChart::ChartThemeBlueCerulean);
 
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     axis->append(categories);
