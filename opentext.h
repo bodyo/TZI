@@ -10,6 +10,8 @@ class QPushButton;
 class QTableView;
 class QVBoxLayout;
 class QGroupBox;
+class QLineEdit;
+class QTextDocument;
 
 namespace QtCharts {
     class QBarSeries;
@@ -37,6 +39,7 @@ private:
 
 protected:
     void showXRam(QtCharts::QBarSeries *series, QStringList &categories);
+    void searchAndHighlight(QTextDocument *document);
 
 private slots:
     virtual void showBigram();
@@ -44,8 +47,11 @@ private slots:
     virtual void showSortedByAlphabet();
     virtual void showSortedByAscending();
 
+    virtual void search();
+
 protected:
     FrequencyWordCounter m_wordsCounter;
+    bool isFirstTime{true};
 
     QVBoxLayout *m_textFieldLayout;
     QVBoxLayout *m_buttonsLayout;
@@ -56,6 +62,8 @@ protected:
     QPushButton *m_threegram;
     QPushButton *m_frequencyByAlphabet;
     QPushButton *m_frequencyByAscending;
+    QLineEdit *m_searchField;
+    QPushButton *m_search;
 };
 
 #endif // OPENTEXT_H

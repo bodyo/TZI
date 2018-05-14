@@ -91,7 +91,7 @@ void OpenAndCodedText::showBigram()
     }
 
     QStringList finalCategories;
-    for (int i = 0; i < 15; ++i)
+    for (int i = 0; i < categories.size() && i < categories1.size(); ++i)
         finalCategories.append(QString("%1/%2").arg(categories1.at(i)).arg(categories.at(i)));
 
     QBarSeries *series = new QBarSeries();
@@ -161,7 +161,7 @@ void OpenAndCodedText::showThreegram()
     }
 
     QStringList finalCategories;
-    for (int i = 0; i < 15; ++i)
+    for (int i = 0; i < categories.size() && i < categories1.size(); ++i)
         finalCategories.append(QString("%1/%2").arg(categories1.at(i)).arg(categories.at(i)));
 
     QBarSeries *series = new QBarSeries();
@@ -215,7 +215,7 @@ void OpenAndCodedText::showSortedByAlphabet()
     }
 
     QStringList finalCategories;
-    for (int i = 0; i < categories.size(); ++i)
+    for (int i = 0; i < categories.size() && i < categories1.size(); ++i)
         finalCategories.append(QString("%1/%2").arg(categories.at(i)).arg(categories1.at(i)));
 
     QBarSeries *series = new QBarSeries();
@@ -269,7 +269,7 @@ void OpenAndCodedText::showSortedByAscending()
     }
 
     QStringList finalCategories;
-    for (int i = 0; i < categories.size(); ++i)
+    for (int i = 0; i < categories.size() && i < categories1.size(); ++i)
         finalCategories.append(QString("%1/%2").arg(categories.at(i)).arg(categories1.at(i)));
 
     QBarSeries *series = new QBarSeries();
@@ -277,6 +277,22 @@ void OpenAndCodedText::showSortedByAscending()
     series->append(set1);
 
     showXRam(series, finalCategories);
+}
+
+void OpenAndCodedText::search()
+{
+    QTextDocument *document = m_codedText->document();
+
+    if (!isFirstTime)
+        document->undo();
+    searchAndHighlight(document);
+
+    QTextDocument *document1 = m_openText->document();
+
+    if (!isFirstTime)
+        document1->undo();
+    searchAndHighlight(document1);
+    isFirstTime = false;
 }
 
 QTextEdit *OpenAndCodedText::codedText() const

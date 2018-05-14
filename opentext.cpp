@@ -13,6 +13,7 @@
 #include <QHeaderView>
 #include <QChar>
 #include <QGroupBox>
+#include <QLineEdit>
 
 #include <QDebug>
 
@@ -32,7 +33,10 @@ OpenText::OpenText(const QStringList &alphabet, QWidget *parent)
       m_bigram(new QPushButton("Bigram", this)),
       m_threegram(new QPushButton("Threegram", this)),
       m_frequencyByAlphabet(new QPushButton("Frequency of repetitions by alphabet", this)),
-      m_frequencyByAscending(new QPushButton("Frequency of repetitions by ascending", this))
+      m_frequencyByAscending(new QPushButton("Frequency of repetitions by ascending", this)),
+      m_searchField(new QLineEdit(this)),
+      m_search(new QPushButton("Search", this))
+
 {
     setupUi(alphabet);
 }
@@ -41,11 +45,19 @@ void OpenText::setupUi(const QStringList &alphabet)
 {
     auto layout = new QHBoxLayout(this);
 
+    m_openText->setUndoRedoEnabled(true);
+
     m_tableView->setModel(new AlphabetModel(alphabet, m_tableView));
 
     m_tableView->horizontalHeader()->setStretchLastSection(true);
     m_tableView->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+    m_searchField->setPlaceholderText("Enter something for search");
 
+    auto searchLayout = new QVBoxLayout();
+    searchLayout->addWidget(m_searchField);
+    searchLayout->addWidget(m_search);
+
+    m_buttonsLayout->addLayout(searchLayout);
     m_buttonsLayout->addWidget(m_bigram);
     m_buttonsLayout->addWidget(m_threegram);
     m_buttonsLayout->addWidget(m_frequencyByAlphabet);
@@ -61,6 +73,7 @@ void OpenText::setupUi(const QStringList &alphabet)
     connect(m_threegram, &QPushButton::clicked, this, &OpenText::showThreegram);
     connect(m_frequencyByAlphabet, &QPushButton::clicked, this, &OpenText::showSortedByAlphabet);
     connect(m_frequencyByAscending, &QPushButton::clicked, this, &OpenText::showSortedByAscending);
+    connect(m_search, &QPushButton::clicked, this, &OpenText::search);
 }
 
 void OpenText::addWidgetToAlphabetLayout(QWidget *widget)
@@ -74,7 +87,7 @@ void OpenText::showXRam(QBarSeries *series, QStringList &categories)
     chart->addSeries(series);
     chart->setTitle("Data");
     chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->setTheme(QChart::ChartThemeBlueCerulean);
+//    chart->setTheme(QChart::ChartThemeDark);
 
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     axis->append(categories);
@@ -96,6 +109,39 @@ void OpenText::showXRam(QBarSeries *series, QStringList &categories)
         delete series;
         delete axis;
     });
+}
+
+void OpenText::searchAndHighlight(QTextDocument *document)
+{
+    if (m_searchField->text().isEmpty())
+        return;
+
+    bool found = false;
+
+    QTextCursor highlightCursor(document);
+    QTextCharFormat restore;
+    restore.clearBackground();
+    highlightCursor.mergeCharFormat(restore);
+    QTextCursor cursor(document);
+
+    cursor.beginEditBlock();
+
+    QTextCharFormat plainFormat(highlightCursor.charFormat());
+    QTextCharFormat colorFormat = plainFormat;
+    colorFormat.setForeground(Qt::red);
+
+    while (!highlightCursor.isNull() && !highlightCursor.atEnd())
+    {
+        highlightCursor = document->find(m_searchField->text().toUpper(), highlightCursor);
+
+        if (!highlightCursor.isNull())
+        {
+            found = true;
+            highlightCursor.mergeCharFormat(colorFormat);
+        }
+    }
+
+    cursor.endEditBlock();
 }
 
 void OpenText::showBigram()
@@ -233,6 +279,17 @@ void OpenText::showSortedByAscending()
     series->append(set);
 
     showXRam(series, categories);
+}
+
+void OpenText::search()
+{
+    QTextDocument *document = m_openText->document();
+
+    if (!isFirstTime)
+        document->undo();
+
+    searchAndHighlight(document);
+    isFirstTime = false;
 }
 
 FrequencyWordCounter &OpenText::wordsCounter()

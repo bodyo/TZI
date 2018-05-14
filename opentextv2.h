@@ -16,6 +16,8 @@ private slots:
     void showSortedByAlphabet() override;
     void showSortedByAscending() override;
 
+    void search() override;
+
 private:
     FrequencyWordCounter m_wordsCounter1;
 

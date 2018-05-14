@@ -15,10 +15,10 @@
 
 SimpleReplacementCipher::SimpleReplacementCipher(QWidget *parent)
     : QWidget(parent),
-      m_relationTableModel(new RelationTableModel({{"A","A"}, {"B","B"}, {"C","L"}, {"D","D"}, {"E","A"}, {"F","F"}, {"G","R"},
-                                                   {"H","H"}, {"I","I"}, {"J","J"}, {"K","K"}, {"L","L"}, {"M","O"},
-                                                   {"N","N"}, {"O","O"}, {"P","P"}, {"Q","Q"}, {"R","R"}, {"S","S"}, {"T","T"}, {"U","U"},
-                                                   {"V","F"}, {"W","W"}, {"X","X"}, {"Y","Y"}, {"Z","Z"}, {" "," "}, {".","."}, {","," "}, {";",";"}, {"-","-"}, {"'","E"}})),
+      m_relationTableModel(new RelationTableModel({{"A","D"}, {"B"," "}, {"C","E"}, {"D","M"}, {"E","G"}, {"F","O"}, {"G","K"},
+                                                   {"H","H"}, {"I","L"}, {"J","I"}, {"K","F"}, {"L","P"}, {"M","H"},
+                                                   {"N","Q"}, {"O","O"}, {"P","U"}, {"Q","W"}, {"R","Y"}, {"S","X"}, {"T"," "}, {"U","S"},
+                                                   {"V","-"}, {"W","V"}, {"X","X"}, {"Y","N"}, {"Z","A"}, {" ","B"}, {".","C"}, {",","T"}, {";","S"}, {"-","R"}, {"'","'"}})),
       m_relationsTableView(new QTableView(this)),
       m_openText(new OpenAndCodedText({"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
                                "N", "O", "P", "Q", "R", "S", "T", "U",
