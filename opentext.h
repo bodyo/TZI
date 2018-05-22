@@ -26,7 +26,7 @@ public:
     QVBoxLayout *textFieldLayout() const;
     QVBoxLayout *buttonsLayout() const;
 
-    void addTextLieldToLayout();
+    void addTextFieldToLayout();
 
     QTableView *tableView() const;
     QTextEdit *openText() const;

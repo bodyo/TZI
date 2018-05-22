@@ -312,7 +312,7 @@ QVBoxLayout *OpenText::buttonsLayout() const
     return m_buttonsLayout;
 }
 
-void OpenText::addTextLieldToLayout()
+void OpenText::addTextFieldToLayout()
 {
     m_textFieldLayout->addWidget(m_openText);
 }

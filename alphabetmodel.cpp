@@ -11,7 +11,7 @@ QVariant AlphabetModel::headerData(int section, Qt::Orientation orientation, int
     if (role == Qt::DisplayRole)
     {
         if (orientation == Qt::Vertical)
-            return section+1;
+            return section;
 
         else if (orientation == Qt::Horizontal)
             return "Letter";
