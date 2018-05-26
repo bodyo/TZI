@@ -37,7 +37,8 @@ SOURCES += \
     relationtableview.cpp \
     vigenerecipher.cpp \
     hillcipher.cpp \
-    feistelcipher.cpp
+    feistelcipher.cpp \
+    rsacipher.cpp
 
 HEADERS += \
     caesarcipher.h \
@@ -50,4 +51,5 @@ HEADERS += \
     relationtableview.h \
     vigenerecipher.h \
     hillcipher.h \
-    feistelcipher.h
+    feistelcipher.h \
+    rsacipher.h

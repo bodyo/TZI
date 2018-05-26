@@ -9,6 +9,7 @@
 #include "vigenerecipher.h"
 #include "hillcipher.h"
 #include "feistelcipher.h"
+#include "rsacipher.h"
 
 Decoder::Decoder(QWidget *parent)
     : QWidget(parent),
@@ -26,6 +27,7 @@ Decoder::Decoder(QWidget *parent)
     m_tabWidget->addTab(new VigenereCipher(this), "Vigenere cipher");
     m_tabWidget->addTab(new HillCipher(this), "Hill cipher");
     m_tabWidget->addTab(new FeistelCipher(this), "Feistel cipher");
+    m_tabWidget->addTab(new RSACipher(this), "RSA cipher");
     m_tabWidget->setCurrentIndex(m_tabWidget->count()-1);
 
     auto layout = new QHBoxLayout(this);
