@@ -49,6 +49,8 @@ void HillCipher::decode()
 
     QGenericMatrix<3,3,float> matrix3x3(initMatrix.data());
 
+    qDebug() << matrix3x3;
+
     QTransform matrix(initMatrix.at(0),initMatrix.at(1),initMatrix.at(2),
                       initMatrix.at(3),initMatrix.at(4),initMatrix.at(5),
                       initMatrix.at(6),initMatrix.at(7),initMatrix.at(8));

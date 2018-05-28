@@ -30,8 +30,8 @@ RSACipher::RSACipher(QWidget *parent)
     decodeLayout->addWidget(m_decode);
     decodeLayout->addWidget(m_code);
 
-    m_spinBoxP->setValue(29);
-    m_spinBoxQ->setValue(71);
+//    m_spinBoxP->setValue(29);
+//    m_spinBoxQ->setValue(71);
 
     auto inputLayout = new QHBoxLayout();
     inputLayout->addWidget(m_spinBoxP);

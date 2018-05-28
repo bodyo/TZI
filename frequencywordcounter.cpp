@@ -13,7 +13,7 @@ void FrequencyWordCounter::count(const QString &data, const QStringList &alphabe
 
     for (auto iter = m_data.begin(); iter != m_data.end(); ++iter)
     {
-        if (*iter == "\n" || (!m_alphabet.contains(*iter)))
+        if (*iter == "\n" /*|| (!m_alphabet.contains(*iter))*/)
             continue;
         m_charactersCount.insert(*iter, m_charactersCount.value(*iter, 0)+1);
 

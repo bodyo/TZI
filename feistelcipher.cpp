@@ -30,8 +30,8 @@ FeistelCipher::FeistelCipher(QWidget *parent)
     decodeLayout->addWidget(m_decode);
     decodeLayout->addWidget(m_code);
 
-    m_spinBox->setValue(10);
-    m_lineEdit->setText("7+");
+//    m_spinBox->setValue(10);
+//    m_lineEdit->setText("7+");
 
     auto inputLayout = new QHBoxLayout();
     inputLayout->addWidget(m_lineEdit);
@@ -141,7 +141,10 @@ void FeistelCipher::decode()
     {
         int L;
         int R;
-        K = inputK.toInt() + rounds - 1;
+        if (isIncrease)
+            K = inputK.toInt() + rounds - 1;
+        else
+            K = inputK.toInt() - rounds + 1;
         bool needToQuit = false;
 
         if (iter == codedText.end())

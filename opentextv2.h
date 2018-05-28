@@ -15,6 +15,7 @@ private slots:
     void showThreegram() override;
     void showSortedByAlphabet() override;
     void showSortedByAscending() override;
+    void showLineSortedByAscending();
 
     void search() override;
 
@@ -24,6 +25,7 @@ private:
     QTextEdit *m_codedText;
     QGroupBox *m_codedGroupBox;
     QGroupBox *m_openTextGroupBox;
+    QPushButton *m_linearChart;
 };
 
 #endif // OPENTEXTV2_H
